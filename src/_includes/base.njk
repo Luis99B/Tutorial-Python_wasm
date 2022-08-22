@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.0/full/pyodide.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>{{ subtitle }}</h1>
+    </header>
+    <div class="content">
+      {{ content | safe }}
+    </div>
+    <footer>
+      <p>&copy; 2022 - Luis Bodart A01635000 </p>
+    </footer>
+  </div>
+  <script>hljs.highlightAll();</script>
+  <script type="text/javascript">
+    async function main() {
+      let pyodide = await loadPyodide();
+      pyodide.loadPackage('numpy').then(() => {
+        pyodide.runPython(`
+          from numpy import random
+          import numpy as np
+        `);
+        pyodide.runPython(`
+          arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+          print(arr)
+          random.shuffle(arr)
+          print(arr)
+        `);
+      });
+    }
+    main();
+  </script>
+</body>
+</html>
