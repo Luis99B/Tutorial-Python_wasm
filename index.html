@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial Python WebAssembly</title>
+  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.0/full/pyodide.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Tutorial python para wasm</h1>
+    </header>
+    <div class="content">
+      <h2>Instalación</h2>
+<p>Este tutorial usa una distribución de Python para el navegador basada en WebAssembly.</p>
+<p><strong>Pyodide</strong> es un port de CPython a WebAssembly/Emscripten.</p>
+<p>Gracias a el se puede ejecutar código de Python en el navegador.</p>
+<br/>
+<p>Para incluir <strong>Pyodide</strong> en tu proyecto puedes utilizar la siguiente URL de CDN y usarla dentro del head:</p>
+<pre><code>  https://cdn.jsdelivr.net/pyodide/v0.21.0/full/pyodide.js
+</code></pre>
+<p>Ejemplo:</p>
+<pre><code class="language-html">  &lt;script src=&quot;https://cdn.jsdelivr.net/pyodide/v0.21.0/full/pyodide.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h2>Cómo empezar</h2>
+<p>El archivo pyodide.js define una única función asíncrona llamada <strong>loadPyodide</strong> que configura el entorno de Python y devuelve el top level namespace de Pyodide.</p>
+<pre><code class="language-javascript">async function main() {
+  let pyodide = await loadPyodide();
+  // Pyodide esta listo para usarse
+  console.log(pyodide.runPython(`
+    import sys
+    sys.version
+  `));
+};
+main();
+</code></pre>
+<p>Gracias a esa función ya se puede correr código básico de Python en el navegador.</p>
+<h2>Librerías</h2>
+<p>Pyodide incluye librerías básicas, por lo que si se requiere usar una librería mas avanzada como <strong>Numpy</strong> o <strong>Matplotlib</strong>, se debe importarla manualmente.</p>
+<p>En caso de que requieran importar librerías de Python, se puede usar la función <strong>loadPackage</strong> para importar la librería previo a su uso.</p>
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+  async function main() {
+    let pyodide = await loadPyodide();
+    pyodide.loadPackage('numpy').then(() =&gt; {
+      pyodide.runPython(`
+        from numpy import random
+        import numpy as np
+      `);
+      pyodide.runPython(`
+        arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+        print(arr)
+        random.shuffle(arr)
+        print(arr)
+      `);
+    });
+  }
+  main();
+&lt;/script&gt;
+</code></pre>
+<p>En el ejemplo anterior se importo la librería <strong>Numpy</strong> y se ejecutó haciendo uso de su función shuffle para desordenar un arreglo.</p>
+<p>Para poder ver el resultado, se debe ver en la consola del navegador.</p>
+<h2>Referencias</h2>
+<p><a href = "https://pyodide.org/en/stable/" target="_blank">Pyodide</a></p>
+
+    </div>
+    <footer>
+      <p>&copy; 2022 - Luis Bodart A01635000 </p>
+    </footer>
+  </div>
+  <script>hljs.highlightAll();</script>
+  <script type="text/javascript">
+    async function main() {
+      let pyodide = await loadPyodide();
+      pyodide.loadPackage('numpy').then(() => {
+        pyodide.runPython(`
+          from numpy import random
+          import numpy as np
+        `);
+        pyodide.runPython(`
+          arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+          print(arr)
+          random.shuffle(arr)
+          print(arr)
+        `);
+      });
+    }
+    main();
+  </script>
+</body>
+</html>
