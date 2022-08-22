@@ -1,11 +1,11 @@
 {
-  "name": "Tutorial Python wasm",
+  "name": "Tutorial-Python_wasm",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "npx eleventy --serve",
-    "build": "npx eleventy"
+    "build": "env NODE_ENV=production npx eleventy --pathprefix 'eleventy-gh-demo'"
   },
   "keywords": [],
   "author": "Luis Bodart",
