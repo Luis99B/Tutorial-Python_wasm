@@ -1,2 +1,5 @@
 # Tutorial para correr python en el navegador usando WASM
-# Tutorial-Python_wasm
+
+Eleventy ([11ty](https://www.11ty.dev/)) como front-end framework
+
+Lenguajes usados: Nunjucks, JavaScript & Markdown
