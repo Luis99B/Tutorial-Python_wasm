@@ -2,4 +2,4 @@
 
 Eleventy ([11ty](https://www.11ty.dev/)) como front-end framework
 
-Lenguajes usados: Nunjucks, JavaScript & Markdown
+Lenguajes usados: HTML, Nunjucks, JavaScript & Markdown
